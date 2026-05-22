@@ -373,7 +373,17 @@
       <!--
         ═══════════════════════════════════════════════════════
         CONNECTING TO THE SUPERSET DASHBOARD
+    -->
+      <iframe
+        id="superset-iframe"
+        src="http://35.185.86.209:8088/superset/dashboard/8/?standalone=3"
+        title="Consolidated SDOH Data Documentation Dashboard"
+        width="100%"
+        style="min-height:calc(100vh - 260px); border:none; display:block;"
+        allowfullscreen>
+      </iframe>
 
+      <!--
         OPTION A — Simple iframe embed:
         I'll replace this comment block with:
 
@@ -399,14 +409,8 @@
            });
         ═══════════════════════════════════════════════════════
       -->
-      <div class="superset-placeholder">
-        <i class="bi bi-bar-chart-fill" aria-hidden="true"></i>
-        <p><strong>Superset dashboard will appear here</strong></p>
-        <p style="font-size:.85rem;">The SDK configuration will go here.</p>
-      </div>
     </div>
   </div>
-
   <!-- ══ USE CASES – CONSOLIDATED ══════════════════════════════════ -->
   <div id="consolidated-page" class="page">
     <main class="main-content" tabindex="-1">
