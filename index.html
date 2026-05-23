@@ -360,11 +360,11 @@
         <h2>Analytics</h2>
         <div class="analytics-tabs" role="tablist" aria-label="Dashboard selection">
           <button role="tab" aria-selected="true" class="active"
-                  onclick="switchDashboard(this)">Overview</button>
+                  onclick="switchDashboard(this,6)">Sample</button>
           <button role="tab" aria-selected="false"
-                  onclick="switchDashboard(this)">SDOH Dashboard</button>
+                  onclick="switchDashboard(this,8)">SDOH Dashboard</button>
           <button role="tab" aria-selected="false"
-                  onclick="switchDashboard(this)">Cancer Dashboard</button>
+                  onclick="switchDashboard(this,5)">Cancer Dashboard</button>
         </div>
       </div>
     </div>
@@ -376,39 +376,13 @@
     -->
       <iframe
         id="superset-iframe"
-        src="http://35.185.86.209:8088/superset/dashboard/8/?standalone=3"
-        title="Consolidated SDOH Data Documentation Dashboard"
+        src="http://35.185.86.209/superset/welcome/"
+        title="NMHF Analytics"
         width="100%"
         style="min-height:calc(100vh - 260px); border:none; display:block;"
         allowfullscreen>
       </iframe>
 
-      <!--
-        OPTION A — Simple iframe embed:
-        I'll replace this comment block with:
-
-        <iframe
-          id="superset-iframe"
-          src="http://SUPERSET_HOST/superset/embedded/DASHBOARD_UUID/?standalone=true"
-          title="NMHF Analytics Dashboard"
-          allowfullscreen>
-        </iframe>
-
-        OPTION B — Using the Embedded SDK instead
-        1. Add before </body>:
-           <script src="https://unpkg.com/@superset-ui/embedded-sdk"></script>
-        2. Replace this comment with:
-           <div id="superset-embed-target" style="width:100%;height:100%;"></div>
-        3. Add script:
-           supersetEmbeddedSdk.embedDashboard({
-             id: "DASHBOARD_UUID",
-             supersetDomain: "http://SUPERSET_HOST",
-             mountPoint: document.getElementById("superset-embed-target"),
-             fetchGuestToken: () => fetchGuestTokenFromYourBackend(),
-             dashboardUiConfig: { hideTitle: true }
-           });
-        ═══════════════════════════════════════════════════════
-      -->
     </div>
   </div>
   <!-- ══ USE CASES – CONSOLIDATED ══════════════════════════════════ -->
@@ -554,14 +528,15 @@
     });
 
     /* ── Analytics tabs ───────────────────────────────────────── */
-    function switchDashboard(btn) {
+    function {switchDashboard(btn, dashId) {
       document.querySelectorAll('.analytics-tabs button').forEach(b => {
         b.classList.remove('active');
         b.setAttribute('aria-selected', 'false');
       });
       btn.classList.add('active');
       btn.setAttribute('aria-selected', 'true');
-      // TODO: swap iframe src per tab if needed
+      document.getElementById('superset-iframe').src =
+	`http://35.185.86.209/superset/superset/dashboard/${dashId}/?standalone=3`;
     }
   </script>
 
