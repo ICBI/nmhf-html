@@ -359,8 +359,8 @@
       <div class="analytics-header-inner">
         <h2>Analytics</h2>
         <div class="analytics-tabs" role="tablist" aria-label="Dashboard selection">
-          <button role="tab" aria-selected="true" class="active"
-                  onclick="switchDashboard(this,6)">Sample</button>
+          <button role="tab" aria-selected="false"
+                  onclick="switchDashboard(this,6)">Sample Dashboard</button>
           <button role="tab" aria-selected="false"
                   onclick="switchDashboard(this,8)">SDOH Dashboard</button>
           <button role="tab" aria-selected="false"
@@ -478,6 +478,12 @@
       if (target) {
         if (pageId === 'analytics') {
           target.style.display = 'flex';
+          // Reset iframe to Superset welcome page and clear active tabs
+          document.getElementById('superset-iframe').src = 'http://35.185.86.209/superset/welcome/';
+          document.querySelectorAll('.analytics-tabs button').forEach(b => {
+            b.classList.remove('active');
+            b.setAttribute('aria-selected', 'false');
+          });		
         } else {
           target.classList.add('active');
         }
@@ -533,7 +539,7 @@
       btn.classList.add('active');
       btn.setAttribute('aria-selected', 'true');
       document.getElementById('superset-iframe').src =
-	`http://35.185.86.209/superset/superset/dashboard/${dashId}/?standalone=3`;
+        `http://35.185.86.209/superset/superset/dashboard/' + dashId + '/?standalone=3`;
     }
   </script>
 
