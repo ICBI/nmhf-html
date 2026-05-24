@@ -50,7 +50,7 @@
     .site-header {
       background: var(--white);
       border-bottom: 2px solid var(--border);
-      padding: 1.5rem 1.5rem;
+      padding: 2rem 1.5rem .75rem;
     }
     .header-inner {
       max-width: 1280px; margin: 0 auto;
@@ -470,6 +470,14 @@
         p.classList.remove('active');
         p.style.display = '';
       });
+
+      // Hide footer on analytics page, show on all others
+      const footer = document.querySelector('.site-footer');
+      if (pageId === 'analytics') {
+        footer.style.display = 'none';
+      } else {
+        footer.style.display = '';
+      }
 
       // Show target
       const target = document.getElementById(pageId + '-page');
