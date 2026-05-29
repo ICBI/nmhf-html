@@ -177,20 +177,7 @@
       position: relative;
       z-index: 1;
     }
-    .analytics-header h2 {
-      font-family: 'Source Serif 4', Georgia, serif;
-      font-size: 1.3rem; font-weight: 700; color: var(--gu-blue);
-    }
-    .analytics-tabs { display: flex; gap: .5rem; flex-wrap: wrap; }
-    .analytics-tabs button {
-      padding: .4rem 1rem; border-radius: 4px; font-size: .88rem;
-      font-weight: 600; cursor: pointer; border: 2px solid var(--gu-blue);
-      background: var(--white); color: var(--gu-blue); transition: background .18s, color .18s;
-    }
-    .analytics-tabs button.active,
-    .analytics-tabs button:hover { background: var(--gu-blue); color: var(--white); }
-    .analytics-tabs button:focus-visible { outline: 3px solid #7eb8f7; outline-offset: 2px; }
-
+   
     .superset-container {
       flex: 1; 
       width: 100%; 
@@ -351,20 +338,9 @@
   </div>
 
   <!-- ══ ANALYTICS PAGE ════════════════════════════════════════════ -->
-  <div id="analytics-page" class="page">
-    <div class="analytics-header">
-      <div class="analytics-header-inner">
-        <div class="analytics-tabs" role="tablist" aria-label="Dashboard selection">
-          <button role="tab" aria-selected="false"
-                  onclick="switchDashboard(this,6)">Sample Dashboard</button>
-          <button role="tab" aria-selected="false"
-                  onclick="switchDashboard(this,8)">SDOH Dashboard</button>
-          <button role="tab" aria-selected="false"
-                  onclick="switchDashboard(this,5)">Cancer Dashboard</button>
-        </div>
-      </div>
-    </div>
+<div id="analytics-page" class="page">
 
+    <!--Superset embedding--->
     <div class="superset-container" id="superset-wrap" aria-label="Analytics dashboard">
       <!--═════════════ Connecting superset dashboard ══  -->
       <iframe
@@ -373,8 +349,8 @@
         title="NMHF Superset Analytics"
         allowfullscreen>
       </iframe>
-
     </div>
+    
   </div>
   <!-- ══ USE CASES – CONSOLIDATED ══════════════════════════════════ -->
   <div id="consolidated-page" class="page">
@@ -531,19 +507,6 @@
     document.addEventListener('keydown', e => {
       if (e.key === 'Escape') closeDropdowns();
     });
-
-    /* ── Analytics tabs ───────────────────────────────────────── */
-    function switchDashboard(btn, dashId) {
-      document.querySelectorAll('.analytics-tabs button').forEach(b => {
-        b.classList.remove('active');
-        b.setAttribute('aria-selected', 'false');
-      });
-      btn.classList.add('active');
-      btn.setAttribute('aria-selected', 'true');
-
-      document.getElementById('superset-iframe').src =
-        'http://35.185.86.209/superset/dashboard/' + dashId + '/?standalone=3';
-    }
 
     /* ── Prevent NMHF site loading inside Superset iframe ─────── */
     document.getElementById('superset-iframe').addEventListener('load', function() {
