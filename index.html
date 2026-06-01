@@ -455,7 +455,7 @@
 
       // Hide footer on analytics page, show on all others
       const footer = document.querySelector('.site-footer');
-      if (pageId === 'analytics') {
+      if (pageId === 'analytics' || pageId === 'consolidated' || pageId === 'cancer') {
         footer.style.display = 'none';
       } else {
         footer.style.display = '';
