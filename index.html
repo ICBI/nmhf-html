@@ -563,6 +563,18 @@
       } catch(e) {
         // Cross-origin access blocked — ignore
       }
+
+      // 2. Hide Development badge
+      try {
+        const iframeDoc = this.contentDocument || this.contentWindow.document;
+        const style = iframeDoc.createElement('style');
+        style.textContent = `
+          .ant-tag { display: none !important; }
+          [class*="development"] { display: none !important; }
+          .navbar-right .ant-tag { display: none !important; }
+        `;
+        iframeDoc.head.appendChild(style);
+      } catch(e) {}
     });
   </script>
 
