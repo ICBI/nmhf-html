@@ -673,7 +673,51 @@
       display: none;
     }
     .chat-typing.visible { display: block; }
-      
+
+
+    /* ── Universal keyboard support for nav links and buttons ──── */
+    document.querySelectorAll('.nav-list a, .nav-list button').forEach(el => {
+      el.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          this.click();
+        }
+      });
+    });
+    
+    /* ── Left/Right arrow navigation across top nav items ───────── */
+    const topNavItems = document.querySelectorAll('.nav-list > li > a, .nav-list > li > button');
+    topNavItems.forEach((item, index) => {
+      item.addEventListener('keydown', function(e) {
+        if (e.key === 'ArrowRight') {
+          e.preventDefault();
+          topNavItems[(index + 1) % topNavItems.length].focus();
+        }
+        if (e.key === 'ArrowLeft') {
+          e.preventDefault();
+          topNavItems[(index - 1 + topNavItems.length) % topNavItems.length].focus();
+        }
+      });
+    });
+    
+    /* ── Arrow key navigation within dropdown ────────────────────── */
+    document.querySelectorAll('.dropdown-panel a').forEach((link, index, links) => {
+      link.addEventListener('keydown', function(e) {
+        if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          links[(index + 1) % links.length].focus();
+        }
+        if (e.key === 'ArrowUp') {
+          e.preventDefault();
+          links[(index - 1 + links.length) % links.length].focus();
+        }
+        if (e.key === 'Escape') {
+          closeDropdowns();
+          document.getElementById('usecases-li').querySelector('button').focus();
+        }
+      });
+    });
+    
   </script>
 
 </body>
