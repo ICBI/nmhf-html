@@ -570,6 +570,52 @@
     </div>
   </footer>
 
+  <!-- ══ CHATBOT ═══════════════════════════════════════════════ -->
+  <!-- Chat toggle button -->
+  <button class="chat-btn" onclick="toggleChat()"
+          aria-label="Open NMHF Assistant" aria-expanded="false"
+          id="chat-toggle-btn">
+    💬
+  </button>
+  
+  <!-- Chat popup -->
+  <div class="chat-popup" id="chat-popup" role="dialog"
+       aria-label="NMHF Assistant" aria-modal="true">
+  
+    <!-- Header -->
+    <div class="chat-popup-header">
+      <div>
+        <h3>NMHF Assistant</h3>
+        <p>Ask me about the Data Ecosystem</p>
+      </div>
+      <button class="chat-close-btn" onclick="toggleChat()"
+              aria-label="Close chat">✕</button>
+    </div>
+  
+    <!-- Messages -->
+    <div class="chat-messages" id="chat-messages" aria-live="polite">
+      <div class="chat-message bot">
+        👋 Hello! I'm the NMHF Assistant. How can I help you today?
+      </div>
+    </div>
+
+  <!-- Typing indicator -->
+  <div class="chat-typing" id="chat-typing">
+    NMHF Assistant is typing...
+  </div>
+
+  <!-- Input -->
+  <div class="chat-input-area">
+    <input type="text" id="chat-input"
+           placeholder="Type your message..."
+           aria-label="Chat message input"
+           onkeydown="if(event.key==='Enter') sendMessage()"/>
+    <button class="chat-send-btn" onclick="sendMessage()"
+            aria-label="Send message">➤</button>
+  </div>
+
+</div>
+
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
@@ -716,6 +762,82 @@
           document.getElementById('usecases-li').querySelector('button').focus();
         }
       });
+    });
+
+    /* ── Chatbot ──────────────────────────────────────────────── */
+    function toggleChat() {
+      const popup = document.getElementById('chat-popup');
+      const btn = document.getElementById('chat-toggle-btn');
+      const isOpen = popup.classList.contains('open');
+    
+      popup.classList.toggle('open');
+      btn.setAttribute('aria-expanded', !isOpen);
+    
+      if (!isOpen) {
+        // Focus input when opening
+        setTimeout(() => {
+          document.getElementById('chat-input').focus();
+        }, 100);
+      }
+    }
+    
+    function sendMessage() {
+      const input = document.getElementById('chat-input');
+      const messages = document.getElementById('chat-messages');
+      const typing = document.getElementById('chat-typing');
+      const text = input.value.trim();
+    
+      if (!text) return;
+    
+      // Add user message
+      const userMsg = document.createElement('div');
+      userMsg.className = 'chat-message user';
+      userMsg.textContent = text;
+      messages.appendChild(userMsg);
+      input.value = '';
+    
+      // Scroll to bottom
+      messages.scrollTop = messages.scrollHeight;
+    
+      // Show typing indicator
+      typing.classList.add('visible');
+    
+      // Simulate bot response (replace with real API call later)
+      setTimeout(() => {
+        typing.classList.remove('visible');
+        const botMsg = document.createElement('div');
+        botMsg.className = 'chat-message bot';
+        botMsg.textContent = getBotResponse(text);
+        messages.appendChild(botMsg);
+        messages.scrollTop = messages.scrollHeight;
+      }, 1000);
+    }
+    
+    function getBotResponse(userText) {
+      const text = userText.toLowerCase();
+      if (text.includes('hello') || text.includes('hi')) {
+        return 'Hello! How can I assist you with the NMHF Data Ecosystem today?';
+      } else if (text.includes('data') || text.includes('dataset')) {
+        return 'The NMHF Data Ecosystem contains population-level social determinant data. You can explore it in the Analytics and Use Cases sections.';
+      } else if (text.includes('analytics')) {
+        return 'The Analytics page contains interactive Superset dashboards. Click "Analytics" in the navigation to explore them.';
+      } else if (text.includes('contact')) {
+        return 'You can reach our team at ICBI@georgetown.edu or call 202-687-1093.';
+      } else if (text.includes('cancer')) {
+        return 'The NMHF Cancer use case explores correlations between social determinants and cancer outcomes. Find it under Use Cases.';
+      } else if (text.includes('sdoh') || text.includes('social determinant')) {
+        return 'Social Determinants of Health (SDOH) are non-medical factors that influence health outcomes, such as economic status, education, and environment.';
+      } else {
+        return 'Thank you for your question. For detailed assistance, please contact us at ICBI@georgetown.edu.';
+      }
+    }
+    
+    // Close chat on Escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        const popup = document.getElementById('chat-popup');
+        if (popup.classList.contains('open')) toggleChat();
+      }
     });
     
   </script>
