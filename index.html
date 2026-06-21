@@ -439,7 +439,7 @@
       <!--═════════════ Connecting superset dashboard ══  -->
       <iframe
         id="superset-iframe"
-        src="http://35.185.86.209/superset/welcome/"
+        src="https://nmhf.georgetown.edu/superset/welcome/"
         title="NMHF Superset Analytics"
         allowfullscreen>
       </iframe>
@@ -645,7 +645,7 @@
         if (pageId === 'analytics') {
           target.style.display = 'flex';
           // Reset iframe to Superset welcome page and clear active tabs
-          document.getElementById('superset-iframe').src = 'http://35.185.86.209/superset/welcome/';
+          document.getElementById('superset-iframe').src = 'https://nmhf.georgetown.edu/superset/welcome/';
           document.querySelectorAll('.analytics-tabs button').forEach(b => {
             b.classList.remove('active');
             b.setAttribute('aria-selected', 'false');
@@ -700,9 +700,9 @@
     document.getElementById('superset-iframe').addEventListener('load', function() {
       try {
         const iframeUrl = this.contentWindow.location.href;
-        if (iframeUrl === 'http://35.185.86.209/' ||
+        if (iframeUrl === 'https://nmhf.georgetown.edu/' ||
             iframeUrl.endsWith('/index.html')) {
-          this.src = 'http://35.185.86.209/superset/welcome/';
+          this.src = 'https://nmhf.georgetown.edu/superset/welcome/';
         }
       } catch(e) {
         // Cross-origin access blocked — ignore
