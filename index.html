@@ -728,20 +728,9 @@
       if (e.key === 'Escape') closeDropdowns();
     });
 
-    /* ── Prevent NMHF site loading inside Superset iframe ─────── */
-    document.getElementById('superset-iframe').addEventListener('load', function() {
-      try {
-        const iframeUrl = this.contentWindow.location.href;
-        if (iframeUrl === 'https://nmhf.georgetown.edu/' ||
-            iframeUrl.endsWith('/index.html')) {
-          this.src = 'https://nmhf.georgetown.edu/superset/welcome/';
-        }
-      } catch(e) {
-        // Cross-origin access blocked — ignore
-      }
-
     /* ── Iframe load handler — redirect + hide dev badge ──────── */
     document.getElementById('superset-iframe').addEventListener('load', function() {
+    //Prevent site loading inside Superset iframe
       try {
         const iframeUrl = this.contentWindow.location.href;
         if (iframeUrl === 'http://35.185.86.209/' ||
@@ -752,7 +741,7 @@
         }
       } catch(e) {}
 
-      //Hide Development badge
+    //Hide Development badge
       try {
         const iframeDoc = this.contentDocument || this.contentWindow.document;
         const style = iframeDoc.createElement('style');
