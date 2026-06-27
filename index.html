@@ -740,18 +740,51 @@
         // Cross-origin access blocked — ignore
       }
 
-      // 2. Hide Development badge
+    /* ── Iframe load handler — redirect + hide dev badge ──────── */
+    document.getElementById('superset-iframe').addEventListener('load', function() {
+      try {
+        const iframeUrl = this.contentWindow.location.href;
+        if (iframeUrl === 'http://35.185.86.209/' ||
+            iframeUrl === 'https://nmhf.georgetown.edu/' ||
+            iframeUrl.endsWith('/index.html')) {
+          this.src = 'https://nmhf.georgetown.edu/superset/welcome/';
+          return;
+        }
+      } catch(e) {}
+
+      //Hide Development badge
       try {
         const iframeDoc = this.contentDocument || this.contentWindow.document;
         const style = iframeDoc.createElement('style');
+        style.id = 'nmhf-hide-dev-badge';
         style.textContent = `
           .ant-tag { display: none !important; }
           [class*="development"] { display: none !important; }
           .navbar-right .ant-tag { display: none !important; }
+          span.ant-tag { display: none !important; }
         `;
         iframeDoc.head.appendChild(style);
-      } catch(e) {}
+
+      //Using MutationObserver to watch for badge reappearing after navigation and hiding it
+      const observer = new MutationObserver(() => {
+      if (!iframeDoc.getElementById('nmhf-hide-dev-badge')) {
+        const s = iframeDoc.createElement('style');
+        s.id = 'nmhf-hide-dev-badge';
+        s.textContent = style.textContent;
+        iframeDoc.head.appendChild(s);
+      }
+      iframeDoc.querySelectorAll('.ant-tag').forEach(el => {
+        el.style.setProperty('display', 'none', 'important');
+      });
     });
+
+    observer.observe(iframeDoc.body, {
+      childList: true,
+      subtree: true
+    });
+        
+  } catch(e) {}
+});
 
     /* ── Universal keyboard support for nav links and buttons ──── */
     document.querySelectorAll('.nav-list a, .nav-list button').forEach(el => {
