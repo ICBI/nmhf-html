@@ -454,36 +454,101 @@
     </div>
     
   </div>
-  <!-- ══ USE CASES – CONSOLIDATED ══════════════════════════════════ -->
-<div id="consolidated-page" class="page">
-    <div class="superset-container" aria-label="Consolidated NMHF Database">
-    
-    <iframe
-        id="tableau-consolidated"
-        src="https://public.tableau.com/views/ConsolidatedSocialDeterminantsofHealthDatabase/homepage?:showVizHome=no&:embed=yes&:tabs=yes&:toolbar=yes&:device=desktop&:jsdebug=false"
-        title="Consolidated Social Determinants of Health Database"
-        width="100%"
-        style="flex:1; border: none; display: block; min-height:0; height:100vh;"
-        allowfullscreen>
-    </iframe>
-    </div>
-  </div>  
 
-  <!-- ══ USE CASES – CANCER ════════════════════════════════════════ -->
-  <div id="cancer-page" class="page">
-      <div class="superset-container" aria-label="NMHF Cancer">
+  <!-- ══ USE CASES PAGE ════════════════════════════════════════ -->
+  <div id="consolidated-page" class="page">
+  <div class="usecase-layout">
 
-    <iframe
-        id="tableau-cancer"
-        src="https://public.tableau.com/views/SocialDeterminantsofHealthandCancer/CancerCorr?:showVizHome=no&:embed=yes&:tabs=yes&:toolbar=yes&:language=en-US"
-        title="Social Determinants of Health and Cancer"
-        width="100%"
-        style="flex:1; border: none; display: block; min-height:0;"
+    <!-- Left sidebar navigation -->
+    <aside class="usecase-sidebar" aria-label="Use case navigation">
+
+      <div class="sidebar-header">
+        <h2>Use Cases</h2>
+        <p>Select a research area to explore</p>
+      </div>
+
+      <nav aria-label="Dashboard selection">
+
+        <button class="sidebar-item active"
+                onclick="loadUseCase(this, 'sdoh-distribution')"
+                aria-pressed="true">
+          <span class="sidebar-icon" aria-hidden="true">📊</span>
+          <span class="sidebar-text">
+            <strong>SDOH Distribution</strong>
+            <span>Explore distribution of social determinants across US counties</span>
+          </span>
+        </button>
+
+        <button class="sidebar-item"
+                onclick="loadUseCase(this, 'correlation')"
+                aria-pressed="false">
+          <span class="sidebar-icon" aria-hidden="true">🔗</span>
+          <span class="sidebar-text">
+            <strong>Correlation Dashboard</strong>
+            <span>Analyze relationships between SDOH variables and health outcomes</span>
+          </span>
+        </button>
+
+        <button class="sidebar-item"
+                onclick="loadUseCase(this, 'data-structure')"
+                aria-pressed="false">
+          <span class="sidebar-icon" aria-hidden="true">🗂️</span>
+          <span class="sidebar-text">
+            <strong>Data Structure</strong>
+            <span>Understand how the consolidated dataset is organized</span>
+          </span>
+        </button>
+
+        <button class="sidebar-item"
+                onclick="loadUseCase(this, 'data-dictionary')"
+                aria-pressed="false">
+          <span class="sidebar-icon" aria-hidden="true">📖</span>
+          <span class="sidebar-text">
+            <strong>Data Dictionary</strong>
+            <span>Reference guide for all variables and their definitions</span>
+          </span>
+        </button>
+
+        <button class="sidebar-item"
+                onclick="loadUseCase(this, 'cancer')"
+                aria-pressed="false">
+          <span class="sidebar-icon" aria-hidden="true">🔬</span>
+          <span class="sidebar-text">
+            <strong>NMHF Cancer</strong>
+            <span>SDOH correlations with cancer incidence and outcomes</span>
+          </span>
+        </button>
+
+      </nav>
+    </aside>
+
+    <!-- Right dashboard viewer -->
+    <div class="usecase-viewer" id="usecase-viewer">
+
+      <!-- Description panel shown before selection -->
+      <div class="usecase-welcome" id="usecase-welcome">
+        <div class="usecase-welcome-inner">
+          <span style="font-size:3rem;">📂</span>
+          <h3>Select a Use Case</h3>
+          <p>Choose a research area from the left panel to load the corresponding dashboard.</p>
+        </div>
+      </div>
+
+      <!-- iframe that loads the selected dashboard -->
+      <iframe
+        id="usecase-iframe"
+        src=""
+        title="Use Case Dashboard"
+        style="display:none; width:100%; flex:1; border:none; min-height:0;"
         allowfullscreen>
-    </iframe>
+      </iframe>
+
     </div>
   </div>
+</div>
 
+<div id="cancer-page" class="page" style="display:none;"></div>
+      
   <!-- ══ ABOUT PAGE ════════════════════════════════════════════════ -->
   <div id="about-page" class="page">
     <main class="main-content" tabindex="-1">
