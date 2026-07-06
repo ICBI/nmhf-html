@@ -360,27 +360,6 @@
       min-width: 0;
     }
     
-    .viewer-header {
-      display: flex; align-items: center; gap: .75rem;
-      padding: .85rem 1.25rem;
-      background: var(--white);
-      border-bottom: 1px solid var(--border);
-      flex-shrink: 0;
-    }
-    .viewer-header-icon { font-size: 1.25rem; color: var(--gu-blue); }
-    .viewer-title {
-      font-size: .92rem; font-weight: 700;
-      color: var(--gu-blue); margin: 0;
-    }
-    .viewer-sub {
-      font-size: .75rem; color: var(--muted); margin: 0;
-    }
-    .viewer-badge {
-      margin-left: auto; font-size: .72rem;
-      padding: .2rem .6rem; border-radius: 4px;
-      background: #eaf3de; color: #3B6D11; font-weight: 600;
-    }
-    
     #usecase-iframe {
       flex: 1; width: 100%;
       border: none; display: block;
@@ -650,8 +629,10 @@
     <aside class="usecase-sidebar" id="usecase-sidebar" aria-label="Use case navigation">
 
       <div class="sidebar-header">
-        <span class="sidebar-header-label">Use Cases</span>
-        <p>Select a research area to explore</p>
+        <div>
+          <span class="sidebar-header-label">Use Cases</span>
+          <p class="sidebar-header-sub">Select a research area to explore</p>
+        </div>
         <button class="sidebar-toggle-btn" id="sidebar-toggle-btn"
                 onclick="toggleUCSidebar()"
                 aria-label="Collapse sidebar">
@@ -665,7 +646,7 @@
         <div class="sidebar-section">
           <button class="sidebar-top-item sidebar-top-active"
                   id="consolidated-top-btn"
-                  onclick="toggleConsolidatedSection()"
+                  onclick="toggleConsolidatedSection(); loadUseCase(document.getElementById('sdoh-distribution-btn'), 'sdoh-distribution'); return false;"
                   aria-expanded="true">
             <span class="sidebar-item-icon" aria-hidden="true">🗃️</span>
             <span class="sidebar-item-text">
@@ -680,6 +661,7 @@
           <div id="consolidated-sub" class="sidebar-sub-items">
 
             <button class="sidebar-sub-item sidebar-sub-active"
+                    id="sdoh-distribution-btn"
                     onclick="loadUseCase(this,'sdoh-distribution')"
                     aria-pressed="true">
               <span class="sub-item-icon" aria-hidden="true">📊</span>
@@ -748,17 +730,6 @@
 
     <!-- ── Dashboard viewer ── -->
     <div class="usecase-viewer" id="usecase-viewer">
-
-      <!-- Viewer header -->
-      <div class="viewer-header" id="viewer-header">
-        <i class="bi bi-bar-chart-line viewer-header-icon"
-           id="viewer-icon" aria-hidden="true"></i>
-        <div>
-          <p class="viewer-title" id="viewer-title">SDOH Distribution</p>
-          <p class="viewer-sub" id="viewer-sub">Consolidated NMHF Database · Tableau Public</p>
-        </div>
-        <span class="viewer-badge">Live</span>
-      </div>
 
       <!-- iframe -->
       <iframe
@@ -1173,10 +1144,6 @@
     
       /* Update viewer header */
       var cfg = useCaseConfig[caseId];
-      document.getElementById('viewer-icon').className = 'bi ' + cfg.icon + ' viewer-header-icon';
-      document.getElementById('viewer-title').textContent = cfg.title;
-      document.getElementById('viewer-sub').textContent = cfg.sub;
-    
       /* Load iframe */
       document.getElementById('usecase-iframe').src = cfg.src;
     }
