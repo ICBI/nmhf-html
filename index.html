@@ -215,117 +215,177 @@
     /* ── Use Case sidebar layout ───────────────────────────────── */
     .usecase-layout {
       display: flex;
-      flex: 1;
-      height: calc(100vh - 180px);
+      height: calc(100vh - 178px);
       overflow: hidden;
     }
     
+    /* ── Sidebar ── */
     .usecase-sidebar {
-      width: 280px;
+      width: 270px;
       flex-shrink: 0;
       background: var(--gu-blue);
       display: flex;
       flex-direction: column;
-      overflow-y: auto;
+      overflow: hidden;
+      transition: width .22s ease;
     }
+    .usecase-sidebar.collapsed { width: 0; }
     
     .sidebar-header {
-      padding: 1.5rem 1.25rem 1rem;
-      border-bottom: 1px solid rgba(255,255,255,.15);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 1rem .75rem;
+      border-bottom: 1px solid rgba(255,255,255,.1);
+      flex-shrink: 0;
     }
-    .sidebar-header h2 {
-      font-family: 'Source Serif 4', Georgia, serif;
-      font-size: 1.2rem; font-weight: 700;
-      color: #fff; margin-bottom: .25rem;
+    .sidebar-header-label {
+      font-size: .72rem; font-weight: 600;
+      letter-spacing: .08em; text-transform: uppercase;
+      color: rgba(255,255,255,.45);
+      white-space: nowrap;
     }
-    .sidebar-header p {
-      font-size: .8rem; color: rgba(255,255,255,.65); margin: 0;
+    .sidebar-toggle-btn, .sidebar-expand-btn {
+      background: none; border: none; cursor: pointer;
+      color: rgba(255,255,255,.5); padding: 2px;
+      display: flex; align-items: center;
+      transition: color .15s;
+    }
+    .sidebar-toggle-btn:hover,
+    .sidebar-expand-btn:hover { color: #fff; }
+    .sidebar-toggle-btn:focus-visible,
+    .sidebar-expand-btn:focus-visible {
+      outline: 2px solid #7eb8f7; outline-offset: 2px; border-radius: 3px;
     }
     
-    .sidebar-item {
-      display: flex; align-items: flex-start;
-      gap: .9rem; width: 100%;
-      padding: 1rem 1.25rem;
+    #sidebar-nav { overflow-y: auto; flex: 1; }
+    
+    /* Top-level items */
+    .sidebar-top-item {
+      display: flex; align-items: flex-start; gap: .75rem;
+      width: 100%; padding: .9rem 1rem;
       background: none; border: none;
       border-left: 3px solid transparent;
       border-bottom: 1px solid rgba(255,255,255,.08);
       cursor: pointer; text-align: left;
-      transition: background .18s, border-color .18s;
-      color: rgba(255,255,255,.8);
+      color: rgba(255,255,255,.75);
+      transition: background .15s, border-color .15s, color .15s;
     }
-    .sidebar-item:hover,
-    .sidebar-item:focus {
-      background: rgba(255,255,255,.1);
-      color: #fff;
-      outline: none;
+    .sidebar-top-item:hover,
+    .sidebar-top-item:focus { background: rgba(255,255,255,.1); color: #fff; outline: none; }
+    .sidebar-top-item:focus-visible {
+      outline: 3px solid #7eb8f7; outline-offset: -3px;
     }
-    .sidebar-item:focus-visible {
-      outline: 3px solid #7eb8f7;
-      outline-offset: -3px;
-    }
-    .sidebar-item.active {
-      background: rgba(255,255,255,.15);
-      border-left-color: #7eb8f7;
-      color: #fff;
+    .sidebar-top-active {
+      background: rgba(255,255,255,.15) !important;
+      border-left-color: #7eb8f7 !important;
+      color: #fff !important;
     }
     
-    .sidebar-icon {
-      font-size: 1.6rem;
-      line-height: 1;
-      flex-shrink: 0;
-      margin-top: .1rem;
+    .sidebar-item-icon {
+      font-size: 1.4rem; flex-shrink: 0;
+      margin-top: .1rem; line-height: 1;
     }
-    
-    .sidebar-text {
-      display: flex;
-      flex-direction: column;
-      gap: .25rem;
+    .sidebar-item-text {
+      display: flex; flex-direction: column; gap: .2rem; flex: 1;
     }
-    .sidebar-text strong {
-      font-size: .92rem;
-      font-weight: 700;
-      line-height: 1.2;
+    .sidebar-item-text strong {
+      font-size: .88rem; font-weight: 700;
+      color: inherit; line-height: 1.2;
     }
-    .sidebar-text span {
-      font-size: .78rem;
-      color: rgba(255,255,255,.65);
+    .sidebar-item-text span {
+      font-size: .74rem; color: rgba(255,255,255,.55);
       line-height: 1.4;
     }
-    .sidebar-item.active .sidebar-text span { color: rgba(255,255,255,.8); }
+    .sidebar-top-active .sidebar-item-text span,
+    .sidebar-top-item:hover .sidebar-item-text span { color: rgba(255,255,255,.75); }
     
+    .sidebar-section-caret {
+      font-size: .8rem; flex-shrink: 0;
+      margin-top: .2rem;
+      transition: transform .2s;
+    }
+    .sidebar-section-caret.rotated { transform: rotate(-90deg); }
+    
+    /* Sub-items */
+    .sidebar-sub-items { background: rgba(0,0,0,.18); }
+    
+    .sidebar-sub-item {
+      display: flex; align-items: flex-start; gap: .6rem;
+      width: 100%; padding: .7rem 1rem .7rem 2.25rem;
+      background: none; border: none;
+      border-left: 3px solid transparent;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+      cursor: pointer; text-align: left;
+      color: rgba(255,255,255,.65);
+      transition: background .15s, border-color .15s, color .15s;
+    }
+    .sidebar-sub-item:hover,
+    .sidebar-sub-item:focus { background: rgba(255,255,255,.08); color: #fff; outline: none; }
+    .sidebar-sub-item:focus-visible {
+      outline: 3px solid #7eb8f7; outline-offset: -3px;
+    }
+    .sidebar-sub-active {
+      background: rgba(255,255,255,.1) !important;
+      border-left-color: #7eb8f7 !important;
+      color: #fff !important;
+    }
+    
+    .sub-item-icon { font-size: 1rem; flex-shrink: 0; margin-top: .15rem; }
+    .sub-item-text { display: flex; flex-direction: column; gap: .15rem; }
+    .sub-item-text strong { font-size: .83rem; font-weight: 700; color: inherit; }
+    .sub-item-text span { font-size: .72rem; color: rgba(255,255,255,.5); line-height: 1.4; }
+    .sidebar-sub-active .sub-item-text span { color: rgba(255,255,255,.7); }
+    
+    /* Collapsed strip */
+    .sidebar-collapsed-strip {
+      display: none;
+      width: 36px; flex-shrink: 0;
+      background: var(--gu-blue);
+      align-items: center; justify-content: center;
+      border-right: 1px solid rgba(255,255,255,.1);
+    }
+    .sidebar-collapsed-strip.visible { display: flex; }
+    
+    /* ── Viewer ── */
     .usecase-viewer {
-      flex: 1;
-      display: flex;
+      flex: 1; display: flex;
       flex-direction: column;
       overflow: hidden;
-      background: #f5f6f8;
+      min-width: 0;
     }
     
-    .usecase-welcome {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    .viewer-header {
+      display: flex; align-items: center; gap: .75rem;
+      padding: .85rem 1.25rem;
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
     }
-    .usecase-welcome-inner {
-      text-align: center;
-      color: var(--muted);
-      padding: 2rem;
+    .viewer-header-icon { font-size: 1.25rem; color: var(--gu-blue); }
+    .viewer-title {
+      font-size: .92rem; font-weight: 700;
+      color: var(--gu-blue); margin: 0;
     }
-    .usecase-welcome-inner h3 {
-      font-family: 'Source Serif 4', Georgia, serif;
-      font-size: 1.4rem; color: var(--gu-blue);
-      margin: .75rem 0 .5rem;
+    .viewer-sub {
+      font-size: .75rem; color: var(--muted); margin: 0;
     }
-    .usecase-welcome-inner p {
-      font-size: .95rem; color: #666;
-      max-width: 320px; margin: 0 auto;
+    .viewer-badge {
+      margin-left: auto; font-size: .72rem;
+      padding: .2rem .6rem; border-radius: 4px;
+      background: #eaf3de; color: #3B6D11; font-weight: 600;
+    }
+    
+    #usecase-iframe {
+      flex: 1; width: 100%;
+      border: none; display: block;
+      min-height: 0;
     }
     
     @media (max-width: 768px) {
       .usecase-layout { flex-direction: column; height: auto; }
-      .usecase-sidebar { width: 100%; height: auto; }
-      .usecase-viewer { min-height: 60vh; }
+      .usecase-sidebar { width: 100% !important; height: auto; }
+      .usecase-viewer { min-height: 70vh; }
     }
 
     /* ── Chatbot ─────────────────────────────────────────────── */
@@ -482,10 +542,11 @@
             </a>
             <a href="#" role="menuitem"
                onclick="showPage('consolidated', null); closeDropdowns();
-                        setTimeout(function(){ 
-                          var cancerBtn = document.querySelectorAll('.sidebar-item')[4];
-                          loadUseCase(cancerBtn, 'cancer');
-                        }, 100);
+                        setTimeout(function(){
+                          loadUseCase(
+                            document.getElementById('cancer-top-btn'), 'cancer'
+                          );
+                        }, 150);
                         return false;">
               NMHF Cancer
             </a>
@@ -576,65 +637,104 @@
     
   </div>
 
-  <!-- ══ USE CASES PAGE ════════════════════════════════════════ -->
-  <div id="consolidated-page" class="page">
-  <div class="usecase-layout">
+  <!-- ══ USE CASES ════════════════════════════════════════════════ -->
+<div id="consolidated-page" class="page">
+  <div class="usecase-layout" id="usecase-layout">
 
-    <!-- Left sidebar navigation -->
-    <aside class="usecase-sidebar" aria-label="Use case navigation">
+    <!-- ── Sidebar ── -->
+    <aside class="usecase-sidebar" id="usecase-sidebar" aria-label="Use case navigation">
 
       <div class="sidebar-header">
-        <h2>Use Cases</h2>
-        <p>Select a research area to explore</p>
+        <span class="sidebar-header-label">Use Cases</span>
+        <button class="sidebar-toggle-btn" id="sidebar-toggle-btn"
+                onclick="toggleUCSidebar()"
+                aria-label="Collapse sidebar">
+          <i class="bi bi-chevron-left" id="sidebar-chevron" aria-hidden="true"></i>
+        </button>
       </div>
 
-      <nav aria-label="Dashboard selection">
+      <nav id="sidebar-nav" aria-label="Dashboard selection">
 
-        <button class="sidebar-item active"
-                onclick="loadUseCase(this, 'sdoh-distribution')"
-                aria-pressed="true">
-          <span class="sidebar-icon" aria-hidden="true">📊</span>
-          <span class="sidebar-text">
-            <strong>SDOH Distribution</strong>
-            <span>Explore distribution of social determinants across US counties</span>
-          </span>
-        </button>
+        <!-- Tab 1: Consolidated SDOH (expandable) -->
+        <div class="sidebar-section">
+          <button class="sidebar-top-item sidebar-top-active"
+                  id="consolidated-top-btn"
+                  onclick="toggleConsolidatedSection()"
+                  aria-expanded="true">
+            <span class="sidebar-item-icon" aria-hidden="true">
+              <i class="bi bi-database"></i>
+            </span>
+            <span class="sidebar-item-text">
+              <strong>Consolidated NMHF Database</strong>
+              <span>Integrated population-level SDOH data</span>
+            </span>
+            <i class="bi bi-chevron-down sidebar-section-caret"
+               id="consolidated-caret" aria-hidden="true"></i>
+          </button>
 
-        <button class="sidebar-item"
-                onclick="loadUseCase(this, 'correlation')"
+          <!-- Sub-items -->
+          <div id="consolidated-sub" class="sidebar-sub-items">
+
+            <button class="sidebar-sub-item sidebar-sub-active"
+                    onclick="loadUseCase(this,'sdoh-distribution')"
+                    aria-pressed="true">
+              <span class="sub-item-icon" aria-hidden="true">
+                <i class="bi bi-bar-chart-line"></i>
+              </span>
+              <span class="sub-item-text">
+                <strong>SDOH Distribution</strong>
+                <span>Frequency distribution of social determinants by county</span>
+              </span>
+            </button>
+
+            <button class="sidebar-sub-item"
+                    onclick="loadUseCase(this,'correlation')"
+                    aria-pressed="false">
+              <span class="sub-item-icon" aria-hidden="true">
+                <i class="bi bi-diagram-3"></i>
+              </span>
+              <span class="sub-item-text">
+                <strong>Correlation Dashboard</strong>
+                <span>Relationships between SDOH variables and health outcomes</span>
+              </span>
+            </button>
+
+            <button class="sidebar-sub-item"
+                    onclick="loadUseCase(this,'data-structure')"
+                    aria-pressed="false">
+              <span class="sub-item-icon" aria-hidden="true">
+                <i class="bi bi-diagram-2"></i>
+              </span>
+              <span class="sub-item-text">
+                <strong>Data Structure</strong>
+                <span>How the consolidated dataset is organized</span>
+              </span>
+            </button>
+
+            <button class="sidebar-sub-item"
+                    onclick="loadUseCase(this,'data-dictionary')"
+                    aria-pressed="false">
+              <span class="sub-item-icon" aria-hidden="true">
+                <i class="bi bi-book"></i>
+              </span>
+              <span class="sub-item-text">
+                <strong>Data Dictionary</strong>
+                <span>Reference guide for all variables and definitions</span>
+              </span>
+            </button>
+
+          </div>
+        </div>
+
+        <!-- Tab 2: NMHF Cancer -->
+        <button class="sidebar-top-item"
+                id="cancer-top-btn"
+                onclick="loadUseCase(this,'cancer')"
                 aria-pressed="false">
-          <span class="sidebar-icon" aria-hidden="true">🔗</span>
-          <span class="sidebar-text">
-            <strong>Correlation Dashboard</strong>
-            <span>Analyze relationships between SDOH variables and health outcomes</span>
+          <span class="sidebar-item-icon" aria-hidden="true">
+            <i class="bi bi-activity"></i>
           </span>
-        </button>
-
-        <button class="sidebar-item"
-                onclick="loadUseCase(this, 'data-structure')"
-                aria-pressed="false">
-          <span class="sidebar-icon" aria-hidden="true">🗂️</span>
-          <span class="sidebar-text">
-            <strong>Data Structure</strong>
-            <span>Understand how the consolidated dataset is organized</span>
-          </span>
-        </button>
-
-        <button class="sidebar-item"
-                onclick="loadUseCase(this, 'data-dictionary')"
-                aria-pressed="false">
-          <span class="sidebar-icon" aria-hidden="true">📖</span>
-          <span class="sidebar-text">
-            <strong>Data Dictionary</strong>
-            <span>Reference guide for all variables and their definitions</span>
-          </span>
-        </button>
-
-        <button class="sidebar-item"
-                onclick="loadUseCase(this, 'cancer')"
-                aria-pressed="false">
-          <span class="sidebar-icon" aria-hidden="true">🔬</span>
-          <span class="sidebar-text">
+          <span class="sidebar-item-text">
             <strong>NMHF Cancer</strong>
             <span>SDOH correlations with cancer incidence and outcomes</span>
           </span>
@@ -643,30 +743,41 @@
       </nav>
     </aside>
 
-    <!-- Right dashboard viewer -->
+    <!-- Collapsed sidebar strip -->
+    <div class="sidebar-collapsed-strip" id="sidebar-collapsed-strip">
+      <button onclick="toggleUCSidebar()"
+              aria-label="Expand sidebar"
+              class="sidebar-expand-btn">
+        <i class="bi bi-chevron-right" aria-hidden="true"></i>
+      </button>
+    </div>
+
+    <!-- ── Dashboard viewer ── -->
     <div class="usecase-viewer" id="usecase-viewer">
 
-      <!-- Description panel shown before selection -->
-      <div class="usecase-welcome" id="usecase-welcome">
-        <div class="usecase-welcome-inner">
-          <span style="font-size:3rem;">📂</span>
-          <h3>Select a Use Case</h3>
-          <p>Choose a research area from the left panel to load the corresponding dashboard.</p>
+      <!-- Viewer header -->
+      <div class="viewer-header" id="viewer-header">
+        <i class="bi bi-bar-chart-line viewer-header-icon"
+           id="viewer-icon" aria-hidden="true"></i>
+        <div>
+          <p class="viewer-title" id="viewer-title">SDOH Distribution</p>
+          <p class="viewer-sub" id="viewer-sub">Consolidated NMHF Database · Tableau Public</p>
         </div>
+        <span class="viewer-badge">Live</span>
       </div>
 
-      <!-- iframe that loads the selected dashboard -->
+      <!-- iframe -->
       <iframe
         id="usecase-iframe"
-        src=""
-        title="Use Case Dashboard"
-        style="display:none; width:100%; flex:1; border:none; min-height:0;"
+        src="https://public.tableau.com/views/ConsolidatedSocialDeterminantsofHealthDatabase/SDOHDistribution?:showVizHome=no&:embed=yes&:tabs=no&:toolbar=yes&:device=desktop"
+        title="SDOH Distribution Dashboard"
         allowfullscreen>
       </iframe>
 
     </div>
   </div>
 </div>
+ 
       
   <!-- ══ ABOUT PAGE ════════════════════════════════════════════════ -->
   <div id="about-page" class="page">
@@ -1003,33 +1114,104 @@
     });
 
     /* ── Use Case sidebar ─────────────────────────────────────── */
-    const useCaseUrls = {
-      'sdoh-distribution': 'https://public.tableau.com/views/ConsolidatedSocialDeterminantsofHealthDatabase/SDOHDistribution?:showVizHome=no&:embed=yes&:tabs=no&:toolbar=yes&:device=desktop',
-      'correlation':       'https://public.tableau.com/views/ConsolidatedSocialDeterminantsofHealthDatabase/CorrelationDashboard?:showVizHome=no&:embed=yes&:tabs=no&:toolbar=yes&:device=desktop',
-      'data-structure':    'https://public.tableau.com/views/ConsolidatedSocialDeterminantsofHealthDatabase/DataStructure?:showVizHome=no&:embed=yes&:tabs=no&:toolbar=yes&:device=desktop',
-      'data-dictionary':   'https://public.tableau.com/views/ConsolidatedSocialDeterminantsofHealthDatabase/DataDictionary?:showVizHome=no&:embed=yes&:tabs=no&:toolbar=yes&:device=desktop',
-      'cancer':            'https://public.tableau.com/views/SocialDeterminantsofHealthandCancer/CancerCorr?:showVizHome=no&:embed=yes&:tabs=yes&:toolbar=yes&:device=desktop'
+    var ucSidebarOpen = true;
+    var consolidatedOpen = true;
+    
+    var useCaseConfig = {
+      'sdoh-distribution': {
+        title: 'SDOH Distribution',
+        sub: 'Consolidated NMHF Database · Tableau Public',
+        icon: 'bi-bar-chart-line',
+        src: 'https://public.tableau.com/views/ConsolidatedSocialDeterminantsofHealthDatabase/SDOHDistribution?:showVizHome=no&:embed=yes&:tabs=no&:toolbar=yes&:device=desktop'
+      },
+      'correlation': {
+        title: 'Correlation Dashboard',
+        sub: 'Consolidated NMHF Database · Tableau Public',
+        icon: 'bi-diagram-3',
+        src: 'https://public.tableau.com/views/ConsolidatedSocialDeterminantsofHealthDatabase/CorrelationDashboard?:showVizHome=no&:embed=yes&:tabs=no&:toolbar=yes&:device=desktop'
+      },
+      'data-structure': {
+        title: 'Data Structure',
+        sub: 'Consolidated NMHF Database · Tableau Public',
+        icon: 'bi-diagram-2',
+        src: 'https://public.tableau.com/views/ConsolidatedSocialDeterminantsofHealthDatabase/DataStructure?:showVizHome=no&:embed=yes&:tabs=no&:toolbar=yes&:device=desktop'
+      },
+      'data-dictionary': {
+        title: 'Data Dictionary',
+        sub: 'Consolidated NMHF Database · Tableau Public',
+        icon: 'bi-book',
+        src: 'https://public.tableau.com/views/ConsolidatedSocialDeterminantsofHealthDatabase/DataDictionary?:showVizHome=no&:embed=yes&:tabs=no&:toolbar=yes&:device=desktop'
+      },
+      'cancer': {
+        title: 'NMHF Cancer',
+        sub: 'Social Determinants and Cancer · Tableau Public',
+        icon: 'bi-activity',
+        src: 'https://public.tableau.com/views/SocialDeterminantsofHealthandCancer/CancerCorr?:showVizHome=no&:embed=yes&:tabs=yes&:toolbar=yes&:device=desktop'
+      }
     };
     
     function loadUseCase(btn, caseId) {
-      // Update active state on sidebar buttons
-      document.querySelectorAll('.sidebar-item').forEach(b => {
-        b.classList.remove('active');
+      /* Clear all active states */
+      document.querySelectorAll('.sidebar-sub-item').forEach(function(b) {
+        b.classList.remove('sidebar-sub-active');
         b.setAttribute('aria-pressed', 'false');
       });
-      btn.classList.add('active');
+      document.querySelectorAll('.sidebar-top-item').forEach(function(b) {
+        b.classList.remove('sidebar-top-active');
+        b.setAttribute('aria-pressed', 'false');
+      });
+    
+      /* Set active on clicked item */
+      btn.classList.add(
+        btn.classList.contains('sidebar-sub-item')
+          ? 'sidebar-sub-active'
+          : 'sidebar-top-active'
+      );
       btn.setAttribute('aria-pressed', 'true');
     
-      // Hide welcome panel, show iframe
-      const welcome = document.getElementById('usecase-welcome');
-      const iframe  = document.getElementById('usecase-iframe');
-      welcome.style.display = 'none';
-      iframe.style.display  = 'block';
+      /* If cancer selected, also highlight cancer top btn */
+      if (caseId === 'cancer') {
+        document.getElementById('cancer-top-btn').classList.add('sidebar-top-active');
+      } else {
+        /* Keep consolidated top btn highlighted for sub-items */
+        document.getElementById('consolidated-top-btn').classList.add('sidebar-top-active');
+      }
     
-      // Load the dashboard
-      iframe.src = useCaseUrls[caseId] || '';
+      /* Update viewer header */
+      var cfg = useCaseConfig[caseId];
+      document.getElementById('viewer-icon').className = 'bi ' + cfg.icon + ' viewer-header-icon';
+      document.getElementById('viewer-title').textContent = cfg.title;
+      document.getElementById('viewer-sub').textContent = cfg.sub;
+    
+      /* Load iframe */
+      document.getElementById('usecase-iframe').src = cfg.src;
     }
-
+    
+    function toggleConsolidatedSection() {
+      consolidatedOpen = !consolidatedOpen;
+      var sub = document.getElementById('consolidated-sub');
+      var caret = document.getElementById('consolidated-caret');
+      sub.style.display = consolidatedOpen ? 'block' : 'none';
+      if (consolidatedOpen) {
+        caret.classList.remove('rotated');
+      } else {
+        caret.classList.add('rotated');
+      }
+    }
+    
+    function toggleUCSidebar() {
+      ucSidebarOpen = !ucSidebarOpen;
+      var sidebar = document.getElementById('usecase-sidebar');
+      var strip = document.getElementById('sidebar-collapsed-strip');
+      if (ucSidebarOpen) {
+        sidebar.classList.remove('collapsed');
+        strip.classList.remove('visible');
+      } else {
+        sidebar.classList.add('collapsed');
+        strip.classList.add('visible');
+      }
+    }
+    
     /* ── Chatbot ──────────────────────────────────────────────── */
     function toggleChat() {
       const popup = document.getElementById('chat-popup');
