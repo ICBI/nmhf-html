@@ -138,6 +138,10 @@
     .page { display: none; flex: 1; }
     .page.active { display: block; }
 
+    /* Consolidated*/
+    #consolidated-page { display: none; flex-direction: column; flex: 1; min-height: 0; }
+    #consolidated-page.active { display: flex; }
+
     /* ── Main content ──────────────────────────────────────────── */
     .main-content {
       max-width: 1280px; margin: 0 auto;
@@ -215,7 +219,8 @@
     /* ── Use Case sidebar layout ───────────────────────────────── */
     .usecase-layout {
       display: flex;
-      height: calc(100vh - 178px);
+      flex: 1;
+      min-height: 0;
       overflow: hidden;
     }
     
@@ -646,6 +651,7 @@
 
       <div class="sidebar-header">
         <span class="sidebar-header-label">Use Cases</span>
+        <p>Select a research area to explore</p>
         <button class="sidebar-toggle-btn" id="sidebar-toggle-btn"
                 onclick="toggleUCSidebar()"
                 aria-label="Collapse sidebar">
@@ -661,9 +667,7 @@
                   id="consolidated-top-btn"
                   onclick="toggleConsolidatedSection()"
                   aria-expanded="true">
-            <span class="sidebar-item-icon" aria-hidden="true">
-              <i class="bi bi-database"></i>
-            </span>
+            <span class="sidebar-item-icon" aria-hidden="true">🗃️</span>
             <span class="sidebar-item-text">
               <strong>Consolidated NMHF Database</strong>
               <span>Integrated population-level SDOH data</span>
@@ -678,9 +682,7 @@
             <button class="sidebar-sub-item sidebar-sub-active"
                     onclick="loadUseCase(this,'sdoh-distribution')"
                     aria-pressed="true">
-              <span class="sub-item-icon" aria-hidden="true">
-                <i class="bi bi-bar-chart-line"></i>
-              </span>
+              <span class="sub-item-icon" aria-hidden="true">📊</span>
               <span class="sub-item-text">
                 <strong>SDOH Distribution</strong>
                 <span>Frequency distribution of social determinants by county</span>
@@ -690,9 +692,7 @@
             <button class="sidebar-sub-item"
                     onclick="loadUseCase(this,'correlation')"
                     aria-pressed="false">
-              <span class="sub-item-icon" aria-hidden="true">
-                <i class="bi bi-diagram-3"></i>
-              </span>
+              <span class="sub-item-icon" aria-hidden="true">🔗</span>
               <span class="sub-item-text">
                 <strong>Correlation Dashboard</strong>
                 <span>Relationships between SDOH variables and health outcomes</span>
@@ -702,9 +702,7 @@
             <button class="sidebar-sub-item"
                     onclick="loadUseCase(this,'data-structure')"
                     aria-pressed="false">
-              <span class="sub-item-icon" aria-hidden="true">
-                <i class="bi bi-diagram-2"></i>
-              </span>
+              <span class="sub-item-icon" aria-hidden="true">🗂️</span>
               <span class="sub-item-text">
                 <strong>Data Structure</strong>
                 <span>How the consolidated dataset is organized</span>
@@ -714,9 +712,7 @@
             <button class="sidebar-sub-item"
                     onclick="loadUseCase(this,'data-dictionary')"
                     aria-pressed="false">
-              <span class="sub-item-icon" aria-hidden="true">
-                <i class="bi bi-book"></i>
-              </span>
+              <span class="sub-item-icon" aria-hidden="true">📖</span>
               <span class="sub-item-text">
                 <strong>Data Dictionary</strong>
                 <span>Reference guide for all variables and definitions</span>
@@ -731,9 +727,7 @@
                 id="cancer-top-btn"
                 onclick="loadUseCase(this,'cancer')"
                 aria-pressed="false">
-          <span class="sidebar-item-icon" aria-hidden="true">
-            <i class="bi bi-activity"></i>
-          </span>
+          <span class="sidebar-item-icon" aria-hidden="true">🔬</span>
           <span class="sidebar-item-text">
             <strong>NMHF Cancer</strong>
             <span>SDOH correlations with cancer incidence and outcomes</span>
