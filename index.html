@@ -244,6 +244,11 @@
       border-bottom: 1px solid rgba(255,255,255,.1);
       flex-shrink: 0;
     }
+    .sidebar-header-sub {
+      font-size: .74rem;
+      color: #ffffff;
+      margin-top: .2rem;
+    }
     .sidebar-header-label {
       font-size: .72rem; font-weight: 600;
       letter-spacing: .08em; text-transform: uppercase;
@@ -646,7 +651,7 @@
         <div class="sidebar-section">
           <button class="sidebar-top-item sidebar-top-active"
                   id="consolidated-top-btn"
-                  onclick="toggleConsolidatedSection(); loadUseCase(document.getElementById('sdoh-distribution-btn'), 'sdoh-distribution'); return false;"
+                  onclick="toggleConsolidatedSection(); loadUseCase(this, 'consolidated-home'); return false;"
                   aria-expanded="true">
             <span class="sidebar-item-icon" aria-hidden="true">🗃️</span>
             <span class="sidebar-item-text">
@@ -1083,6 +1088,12 @@
     var consolidatedOpen = true;
     
     var useCaseConfig = {
+      'consolidated-home': {
+        title: 'Consolidated SDOH Database',
+        sub: 'Overview · Tableau Public',
+        icon: 'bi-database',
+        src: 'https://public.tableau.com/views/ConsolidatedSocialDeterminantsofHealthDatabase/homepage?:showVizHome=no&:embed=yes&:tabs=no&:toolbar=yes&:device=desktop'
+      },
       'sdoh-distribution': {
         title: 'SDOH Distribution',
         sub: 'Consolidated NMHF Database · Tableau Public',
