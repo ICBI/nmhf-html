@@ -212,6 +212,122 @@
       .analytics-header-inner { flex-direction: column; align-items: flex-start; }
     }
 
+    /* ── Use Case sidebar layout ───────────────────────────────── */
+    .usecase-layout {
+      display: flex;
+      flex: 1;
+      height: calc(100vh - 180px);
+      overflow: hidden;
+    }
+    
+    .usecase-sidebar {
+      width: 280px;
+      flex-shrink: 0;
+      background: var(--gu-blue);
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+    
+    .sidebar-header {
+      padding: 1.5rem 1.25rem 1rem;
+      border-bottom: 1px solid rgba(255,255,255,.15);
+    }
+    .sidebar-header h2 {
+      font-family: 'Source Serif 4', Georgia, serif;
+      font-size: 1.2rem; font-weight: 700;
+      color: #fff; margin-bottom: .25rem;
+    }
+    .sidebar-header p {
+      font-size: .8rem; color: rgba(255,255,255,.65); margin: 0;
+    }
+    
+    .sidebar-item {
+      display: flex; align-items: flex-start;
+      gap: .9rem; width: 100%;
+      padding: 1rem 1.25rem;
+      background: none; border: none;
+      border-left: 3px solid transparent;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      cursor: pointer; text-align: left;
+      transition: background .18s, border-color .18s;
+      color: rgba(255,255,255,.8);
+    }
+    .sidebar-item:hover,
+    .sidebar-item:focus {
+      background: rgba(255,255,255,.1);
+      color: #fff;
+      outline: none;
+    }
+    .sidebar-item:focus-visible {
+      outline: 3px solid #7eb8f7;
+      outline-offset: -3px;
+    }
+    .sidebar-item.active {
+      background: rgba(255,255,255,.15);
+      border-left-color: #7eb8f7;
+      color: #fff;
+    }
+    
+    .sidebar-icon {
+      font-size: 1.6rem;
+      line-height: 1;
+      flex-shrink: 0;
+      margin-top: .1rem;
+    }
+    
+    .sidebar-text {
+      display: flex;
+      flex-direction: column;
+      gap: .25rem;
+    }
+    .sidebar-text strong {
+      font-size: .92rem;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+    .sidebar-text span {
+      font-size: .78rem;
+      color: rgba(255,255,255,.65);
+      line-height: 1.4;
+    }
+    .sidebar-item.active .sidebar-text span { color: rgba(255,255,255,.8); }
+    
+    .usecase-viewer {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      background: #f5f6f8;
+    }
+    
+    .usecase-welcome {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .usecase-welcome-inner {
+      text-align: center;
+      color: var(--muted);
+      padding: 2rem;
+    }
+    .usecase-welcome-inner h3 {
+      font-family: 'Source Serif 4', Georgia, serif;
+      font-size: 1.4rem; color: var(--gu-blue);
+      margin: .75rem 0 .5rem;
+    }
+    .usecase-welcome-inner p {
+      font-size: .95rem; color: #666;
+      max-width: 320px; margin: 0 auto;
+    }
+    
+    @media (max-width: 768px) {
+      .usecase-layout { flex-direction: column; height: auto; }
+      .usecase-sidebar { width: 100%; height: auto; }
+      .usecase-viewer { min-height: 60vh; }
+    }
+
     /* ── Chatbot ─────────────────────────────────────────────── */
     .chat-btn {
       position: fixed; bottom: 2rem; right: 2rem;
@@ -365,7 +481,12 @@
               Consolidated NMHF Database
             </a>
             <a href="#" role="menuitem"
-               onclick="showPage('cancer', null); closeDropdowns(); return false;">
+               onclick="showPage('consolidated', null); closeDropdowns();
+                        setTimeout(function(){ 
+                          var cancerBtn = document.querySelectorAll('.sidebar-item')[4];
+                          loadUseCase(cancerBtn, 'cancer');
+                        }, 100);
+                        return false;">
               NMHF Cancer
             </a>
           </div>
@@ -546,8 +667,6 @@
     </div>
   </div>
 </div>
-
-<div id="cancer-page" class="page" style="display:none;"></div>
       
   <!-- ══ ABOUT PAGE ════════════════════════════════════════════════ -->
   <div id="about-page" class="page">
@@ -730,7 +849,7 @@
 
       // Hide footer on analytics page, show on all others
       const footer = document.querySelector('.site-footer');
-      if (pageId === 'analytics' || pageId === 'consolidated' || pageId === 'cancer') {
+      if (pageId === 'analytics' || pageId === 'consolidated') {
         footer.style.display = 'none';
       } else {
         footer.style.display = '';
@@ -882,6 +1001,34 @@
         }
       });
     });
+
+    /* ── Use Case sidebar ─────────────────────────────────────── */
+    const useCaseUrls = {
+      'sdoh-distribution': 'https://public.tableau.com/views/ConsolidatedSocialDeterminantsofHealthDatabase/SDOHDistribution?:showVizHome=no&:embed=yes&:tabs=no&:toolbar=yes&:device=desktop',
+      'correlation':       'https://public.tableau.com/views/ConsolidatedSocialDeterminantsofHealthDatabase/CorrelationDashboard?:showVizHome=no&:embed=yes&:tabs=no&:toolbar=yes&:device=desktop',
+      'data-structure':    'https://public.tableau.com/views/ConsolidatedSocialDeterminantsofHealthDatabase/DataStructure?:showVizHome=no&:embed=yes&:tabs=no&:toolbar=yes&:device=desktop',
+      'data-dictionary':   'https://public.tableau.com/views/ConsolidatedSocialDeterminantsofHealthDatabase/DataDictionary?:showVizHome=no&:embed=yes&:tabs=no&:toolbar=yes&:device=desktop',
+      'cancer':            'https://public.tableau.com/views/SocialDeterminantsofHealthandCancer/CancerCorr?:showVizHome=no&:embed=yes&:tabs=yes&:toolbar=yes&:device=desktop'
+    };
+    
+    function loadUseCase(btn, caseId) {
+      // Update active state on sidebar buttons
+      document.querySelectorAll('.sidebar-item').forEach(b => {
+        b.classList.remove('active');
+        b.setAttribute('aria-pressed', 'false');
+      });
+      btn.classList.add('active');
+      btn.setAttribute('aria-pressed', 'true');
+    
+      // Hide welcome panel, show iframe
+      const welcome = document.getElementById('usecase-welcome');
+      const iframe  = document.getElementById('usecase-iframe');
+      welcome.style.display = 'none';
+      iframe.style.display  = 'block';
+    
+      // Load the dashboard
+      iframe.src = useCaseUrls[caseId] || '';
+    }
 
     /* ── Chatbot ──────────────────────────────────────────────── */
     function toggleChat() {
