@@ -216,6 +216,71 @@
       .analytics-header-inner { flex-direction: column; align-items: flex-start; }
     }
 
+    /* ── Welcome panel ─────────────────────────────────────────── */
+    .usecase-welcome {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      background: var(--bg);
+      overflow-y: auto;
+    }
+    
+    .usecase-welcome-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 2.5rem 3rem;
+      max-width: 640px;
+      width: 100%;
+      box-shadow: 0 1px 5px rgba(0,0,0,.06);
+    }
+    
+    .usecase-welcome-icon {
+      font-size: 2.5rem;
+      color: var(--gu-blue);
+      margin-bottom: 1rem;
+    }
+    
+    .usecase-welcome-card h2 {
+      font-family: 'Source Serif 4', Georgia, serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--gu-blue);
+      margin-bottom: 1rem;
+    }
+    
+    .usecase-welcome-card p {
+      font-size: .97rem;
+      color: #051e42;
+      line-height: 1.75;
+      margin-bottom: 1rem;
+    }
+    
+    .usecase-welcome-card p:last-of-type { margin-bottom: 1.5rem; }
+    
+    .usecase-welcome-hints {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    
+    .welcome-hint {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: .5rem .9rem;
+      font-size: .85rem;
+      font-weight: 600;
+      color: var(--gu-blue);
+    }
+    
+    .welcome-hint i { font-size: 1rem; }
+
     /* ── Use Case sidebar layout ───────────────────────────────── */
     .usecase-layout {
       display: flex;
@@ -717,7 +782,60 @@
     </div>
 
     <!-- ── Dashboard viewer ── -->
-    <div class="usecase-viewer" id="usecase-viewer">
+<div class="usecase-viewer" id="usecase-viewer">
+
+  <!-- Viewer header -->
+  <div class="viewer-header" id="viewer-header">
+    <i class="bi bi-bar-chart-line viewer-header-icon"
+       id="viewer-icon" aria-hidden="true"></i>
+    <div>
+      <p class="viewer-title" id="viewer-title">Explore Interactive Dashboards</p>
+      <p class="viewer-sub" id="viewer-sub">Select a dashboard from the panel</p>
+    </div>
+    <span class="viewer-badge">Live</span>
+  </div>
+
+  <!-- Welcome intro — shown by default before a dashboard is selected -->
+  <div class="usecase-welcome" id="usecase-welcome">
+    <div class="usecase-welcome-card">
+      <div class="usecase-welcome-icon" aria-hidden="true">
+        <i class="bi bi-layers"></i>
+      </div>
+      <h2>Explore Interactive Dashboards</h2>
+      <p>
+        To support your research, we have consolidated several public Social 
+        Determinants of Health (SDOH) databases from the U.S. Census Bureau, 
+        the CDC, and other trusted federal sources. We then developed a suite 
+        of interactive dashboards that allow you to dynamically visualize these 
+        non-medical health factors alongside specific health outcomes.
+      </p>
+      <p>
+        Please choose an option in the panel to explore these datasets tailored 
+        for general diseases or specific cancer registries.
+      </p>
+      <div class="usecase-welcome-hints">
+        <div class="welcome-hint">
+          <i class="bi bi-database" aria-hidden="true"></i>
+          <span>Consolidated NMHF Database</span>
+        </div>
+        <div class="welcome-hint">
+          <i class="bi bi-activity" aria-hidden="true"></i>
+          <span>NMHF Cancer</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- iframe — hidden until a dashboard is selected -->
+  <iframe
+    id="usecase-iframe"
+    src=""
+    title="Use Case Dashboard"
+    allowfullscreen
+    style="display:none;">
+  </iframe>
+
+</div>
 
       <!-- iframe -->
       <iframe
@@ -932,6 +1050,21 @@
           });		
         } else {
           target.classList.add('active');
+
+          /* Reset Use Cases to welcome state when navigating to consolidated */
+        if (pageId === 'consolidated') {
+          var welcome = document.getElementById('usecase-welcome');
+          var iframe = document.getElementById('usecase-iframe');
+          if (welcome) welcome.style.display = 'flex';
+          if (iframe) { iframe.style.display = 'none'; iframe.src = ''; }
+          /* Reset viewer header */
+          document.getElementById('viewer-icon').className = 'bi bi-bar-chart-line viewer-header-icon';
+          document.getElementById('viewer-title').textContent = 'Explore Interactive Dashboards';
+          document.getElementById('viewer-sub').textContent = 'Select a dashboard from the panel';
+          /* Clear all active sidebar states */
+          document.querySelectorAll('.sidebar-sub-item, .sidebar-top-item').forEach(function(b) {
+            b.classList.remove('sidebar-sub-active', 'sidebar-top-active');
+          });
         }
       }
 
@@ -1138,8 +1271,14 @@
     
       /* Update viewer header */
       var cfg = useCaseConfig[caseId];
-      /* Load iframe */
-      document.getElementById('usecase-iframe').src = cfg.src;
+      document.getElementById('viewer-icon').className = 'bi ' + cfg.icon + ' viewer-header-icon';
+      document.getElementById('viewer-title').textContent = cfg.title;
+      document.getElementById('viewer-sub').textContent = cfg.sub;
+      /* Hide welcome, show iframe */
+      document.getElementById('usecase-welcome').style.display = 'none';
+      var iframe = document.getElementById('usecase-iframe');
+      iframe.style.display = 'block';
+      iframe.src = cfg.src;
     }
     
     function toggleConsolidatedSection() {
