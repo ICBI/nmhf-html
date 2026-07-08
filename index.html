@@ -260,26 +260,6 @@
     
     .usecase-welcome-card p:last-of-type { margin-bottom: 1.5rem; }
     
-    .usecase-welcome-hints {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-    
-    .welcome-hint {
-      display: flex;
-      align-items: center;
-      gap: .5rem;
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: .5rem .9rem;
-      font-size: .85rem;
-      font-weight: 600;
-      color: var(--gu-blue);
-    }
-    
-    .welcome-hint i { font-size: 1rem; }
 
     /* ── Use Case sidebar layout ───────────────────────────────── */
     .usecase-layout {
@@ -440,6 +420,40 @@
       .usecase-layout { flex-direction: column; height: auto; }
       .usecase-sidebar { width: 100% !important; height: auto; }
       .usecase-viewer { min-height: 70vh; }
+    }
+
+      .viewer-header {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      padding: .85rem 1.25rem;
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+    .viewer-header-icon {
+      font-size: 1.25rem;
+      color: var(--gu-blue);
+    }
+    .viewer-title {
+      font-size: .92rem;
+      font-weight: 700;
+      color: var(--gu-blue);
+      margin: 0;
+    }
+    .viewer-sub {
+      font-size: .75rem;
+      color: var(--muted);
+      margin: 0;
+    }
+    .viewer-badge {
+      margin-left: auto;
+      font-size: .72rem;
+      padding: .2rem .6rem;
+      border-radius: 4px;
+      background: #eaf3de;
+      color: #3B6D11;
+      font-weight: 600;
     }
 
     /* ── Chatbot ─────────────────────────────────────────────── */
@@ -810,19 +824,9 @@
             non-medical health factors alongside specific health outcomes.
           </p>
           <p>
-            Please choose an option in the panel to explore these datasets tailored 
+            Please choose an option in the sidebar to explore these datasets tailored 
             for general diseases or specific cancer registries.
           </p>
-          <div class="usecase-welcome-hints">
-            <div class="welcome-hint">
-              <i class="bi bi-database" aria-hidden="true"></i>
-              <span>Consolidated NMHF Database</span>
-            </div>
-            <div class="welcome-hint">
-              <i class="bi bi-activity" aria-hidden="true"></i>
-              <span>NMHF Cancer</span>
-            </div>
-          </div>
         </div>
       </div>
     
