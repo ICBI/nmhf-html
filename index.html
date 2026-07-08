@@ -517,29 +517,12 @@
           </a>
         </li>
 
-        <li id="usecases-li">
-          <button aria-haspopup="true" aria-expanded="false"
-                  onclick="toggleDropdown('usecases-li'); return false;">
+        <li>
+          <a href="#" data-page="consolidated"
+             onclick="showPage('consolidated', this); return false;">
             <i class="bi bi-file-earmark-text" aria-hidden="true"></i>
             Use Cases
-            <i class="bi bi-chevron-down caret" aria-hidden="true"></i>
-          </button>
-          <div class="dropdown-panel" role="menu">
-            <a href="#" role="menuitem"
-               onclick="showPage('consolidated', null); closeDropdowns(); return false;">
-              Consolidated NMHF Database
-            </a>
-            <a href="#" role="menuitem"
-               onclick="showPage('consolidated', null); closeDropdowns();
-                        setTimeout(function(){
-                          loadUseCase(
-                            document.getElementById('cancer-top-btn'), 'cancer'
-                          );
-                        }, 150);
-                        return false;">
-              NMHF Cancer
-            </a>
-          </div>
+          </a>
         </li>
 
         <li>
