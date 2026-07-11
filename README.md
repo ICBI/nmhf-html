@@ -1,7 +1,5 @@
 # nmhf-html
 
-## Project Structure
-
 ```
 nmhf-html/
 ├── index.html        
