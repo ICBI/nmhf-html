@@ -201,7 +201,7 @@
         title: 'Correlation Dashboard',
         sub: 'Consolidated NMHF Database · Tableau Public',
         icon: 'bi-diagram-3',
-        src: 'https://public.tableau.com/app/profile/icbi/viz/ConsolidatedSocialDeterminantsofHealthDatabase/SDOHCorrelation?:showVizHome=no&:embed=yes&:tabs=no&:toolbar=yes&:device=desktop'
+        src: 'https://public.tableau.com/views/ConsolidatedSocialDeterminantsofHealthDatabase/SDOHCorrelation?:showVizHome=no&:embed=yes&:tabs=no&:toolbar=yes&:device=desktop'
       },
       'data-structure': {
         title: 'Data Structure',
