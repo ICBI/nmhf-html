@@ -220,6 +220,54 @@
         sub: 'Social Determinants and Cancer · Tableau Public',
         icon: 'bi-activity',
         src: 'https://public.tableau.com/views/SocialDeterminantsofHealthandCancer/CancerCorr?:showVizHome=no&:embed=yes&:tabs=yes&:toolbar=yes&:device=desktop'
+      },
+      'cancer-corr': {
+        title: 'Cancer Correlation',
+        sub: 'NMHF Cancer · Tableau Public',
+        icon: 'bi-graph-up',
+        src: 'https://public.tableau.com/views/SocialDeterminantsofHealthandCancer/CancerCorr?:showVizHome=no&:embed=yes&:tabs=no&:toolbar=yes&:device=desktop'
+      },
+      'sdoh-corr': {
+        title: 'SDOH Correlation',
+        sub: 'NMHF Cancer · Tableau Public',
+        icon: 'bi-diagram-3',
+        src: 'https://public.tableau.com/views/SocialDeterminantsofHealthandCancer/SDOHCorr?:showVizHome=no&:embed=yes&:tabs=no&:toolbar=yes&:device=desktop'
+      },
+      'regional-sdoh': {
+        title: 'Regional SDOH Comparison',
+        sub: 'NMHF Cancer · Tableau Public',
+        icon: 'bi-map',
+        src: 'https://public.tableau.com/views/SocialDeterminantsofHealthandCancer/RegionalSDOHComparison?:showVizHome=no&:embed=yes&:tabs=no&:toolbar=yes&:device=desktop'
+      },
+      'regional-cancer': {
+        title: 'Regional Cancer Comparison',
+        sub: 'NMHF Cancer · Tableau Public',
+        icon: 'bi-hospital',
+        src: 'https://public.tableau.com/views/SocialDeterminantsofHealthandCancer/RegionalCancerComparison?:showVizHome=no&:embed=yes&:tabs=no&:toolbar=yes&:device=desktop'
+      },
+      'cancer-sdoh-matrix': {
+        title: 'Cancer SDOH Matrix',
+        sub: 'NMHF Cancer · Tableau Public',
+        icon: 'bi-grid-3x3',
+        src: 'https://public.tableau.com/views/SocialDeterminantsofHealthandCancer/CancerSDOHMatrix?:showVizHome=no&:embed=yes&:tabs=no&:toolbar=yes&:device=desktop'
+      },
+      'indicator-matrix': {
+        title: 'Indicator Matrix',
+        sub: 'NMHF Cancer · Tableau Public',
+        icon: 'bi-table',
+        src: 'https://public.tableau.com/views/SocialDeterminantsofHealthandCancer/IndicatorMatrix?:showVizHome=no&:embed=yes&:tabs=no&:toolbar=yes&:device=desktop'
+      },
+      'cancer-dictionary': {
+        title: 'Data Dictionary',
+        sub: 'NMHF Cancer · Tableau Public',
+        icon: 'bi-book',
+        src: 'https://public.tableau.com/views/SocialDeterminantsofHealthandCancer/DataDictionary?:showVizHome=no&:embed=yes&:tabs=no&:toolbar=yes&:device=desktop'
+      },
+      'cancer-sources': {
+        title: 'Data Sources',
+        sub: 'NMHF Cancer · Tableau Public',
+        icon: 'bi-search',
+        src: 'https://public.tableau.com/views/SocialDeterminantsofHealthandCancer/DataSources?:showVizHome=no&:embed=yes&:tabs=no&:toolbar=yes&:device=desktop'
       }
     };
     
@@ -241,12 +289,13 @@
           : 'sidebar-top-active'
       );
       btn.setAttribute('aria-pressed', 'true');
-    
-      /* If cancer selected, also highlight cancer top btn */
-      if (caseId === 'cancer') {
+
+      /* highlight correct top-level button */
+      if (caseId === 'cancer' || caseId.startsWith('cancer-') || 
+          caseId === 'sdoh-corr' || caseId === 'regional-sdoh' || 
+          caseId === 'regional-cancer' || caseId === 'indicator-matrix') {
         document.getElementById('cancer-top-btn').classList.add('sidebar-top-active');
       } else {
-        /* Keep consolidated top btn highlighted for sub-items */
         document.getElementById('consolidated-top-btn').classList.add('sidebar-top-active');
       }
     
@@ -271,6 +320,24 @@
         caret.classList.remove('rotated');
       } else {
         caret.classList.add('rotated');
+      }
+    }
+
+    var cancerOpen = false;
+
+    function toggleCancerSection() {
+      cancerOpen = !cancerOpen;
+      var sub = document.getElementById('cancer-sub');
+      var caret = document.getElementById('cancer-caret');
+      var btn = document.getElementById('cancer-top-btn');
+      sub.style.display = cancerOpen ? 'block' : 'none';
+      btn.setAttribute('aria-expanded', cancerOpen);
+      if (cancerOpen) {
+        caret.classList.remove('rotated');
+        btn.classList.add('sidebar-top-active');
+      } else {
+        caret.classList.add('rotated');
+        btn.classList.remove('sidebar-top-active');
       }
     }
     
