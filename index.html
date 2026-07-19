@@ -230,17 +230,106 @@
           </div>
         </div>
 
-        <!-- Tab 2: NMHF Cancer -->
+        <!-- Tab 2: NMHF Cancer (expandable) -->
+      <div class="sidebar-section">
         <button class="sidebar-top-item"
                 id="cancer-top-btn"
-                onclick="loadUseCase(this,'cancer')"
+                onclick="toggleCancerSection()"
                 aria-pressed="false">
           <span class="sidebar-item-icon" aria-hidden="true">🔬</span>
           <span class="sidebar-item-text">
             <strong>NMHF Cancer</strong>
             <span>SDOH correlations with cancer incidence and outcomes</span>
           </span>
+          <i class="bi bi-chevron-down sidebar-section-caret rotated"
+             id="cancer-caret" aria-hidden="true"></i>
         </button>
+
+        <!-- Sub-items — collapsed by default -->
+      <div id="cancer-sub" class="sidebar-sub-items" style="display:none;">
+        
+        <button class="sidebar-sub-item"
+                onclick="loadUseCase(this,'cancer-corr')"
+                aria-pressed="false">
+          <span class="sub-item-icon" aria-hidden="true">📈</span>
+          <span class="sub-item-text">
+            <strong>Cancer Correlation</strong>
+            <span>Correlation between SDOH and cancer outcomes</span>
+          </span>
+        </button>
+
+        <button class="sidebar-sub-item"
+                onclick="loadUseCase(this,'sdoh-corr')"
+                aria-pressed="false">
+          <span class="sub-item-icon" aria-hidden="true">🔗</span>
+          <span class="sub-item-text">
+            <strong>SDOH Correlation</strong>
+            <span>Social determinants correlation analysis</span>
+          </span>
+        </button>
+
+        <button class="sidebar-sub-item"
+                onclick="loadUseCase(this,'regional-sdoh')"
+                aria-pressed="false">
+          <span class="sub-item-icon" aria-hidden="true">🗺️</span>
+          <span class="sub-item-text">
+            <strong>Regional SDOH Comparison</strong>
+            <span>Regional comparison of social determinants</span>
+          </span>
+        </button>
+    
+        <button class="sidebar-sub-item"
+                onclick="loadUseCase(this,'regional-cancer')"
+                aria-pressed="false">
+          <span class="sub-item-icon" aria-hidden="true">🏥</span>
+          <span class="sub-item-text">
+            <strong>Regional Cancer Comparison</strong>
+            <span>Regional cancer incidence and outcomes</span>
+          </span>
+        </button>
+    
+        <button class="sidebar-sub-item"
+                onclick="loadUseCase(this,'cancer-sdoh-matrix')"
+                aria-pressed="false">
+          <span class="sub-item-icon" aria-hidden="true">📊</span>
+          <span class="sub-item-text">
+            <strong>Cancer SDOH Matrix</strong>
+            <span>Matrix view of cancer and SDOH relationships</span>
+          </span>
+        </button>
+    
+        <button class="sidebar-sub-item"
+                onclick="loadUseCase(this,'indicator-matrix')"
+                aria-pressed="false">
+          <span class="sub-item-icon" aria-hidden="true">📋</span>
+          <span class="sub-item-text">
+            <strong>Indicator Matrix</strong>
+            <span>Health indicator comparison matrix</span>
+          </span>
+        </button>
+    
+        <button class="sidebar-sub-item"
+                onclick="loadUseCase(this,'cancer-dictionary')"
+                aria-pressed="false">
+          <span class="sub-item-icon" aria-hidden="true">📖</span>
+          <span class="sub-item-text">
+            <strong>Data Dictionary</strong>
+            <span>Variable reference guide for cancer data</span>
+          </span>
+        </button>
+    
+        <button class="sidebar-sub-item"
+                onclick="loadUseCase(this,'cancer-sources')"
+                aria-pressed="false">
+          <span class="sub-item-icon" aria-hidden="true">🔍</span>
+          <span class="sub-item-text">
+            <strong>Data Sources</strong>
+            <span>Sources and methodology documentation</span>
+          </span>
+        </button>
+    
+      </div>
+    </div>
 
       </nav>
     </aside>
