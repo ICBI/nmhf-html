@@ -290,10 +290,15 @@
       );
       btn.setAttribute('aria-pressed', 'true');
 
-      /* highlight correct top-level button */
-      if (caseId === 'cancer' || caseId.startsWith('cancer-') || 
-          caseId === 'sdoh-corr' || caseId === 'regional-sdoh' || 
-          caseId === 'regional-cancer' || caseId === 'indicator-matrix') {
+      /* Clear ALL top buttons first */
+      document.getElementById('consolidated-top-btn').classList.remove('sidebar-top-active');
+      document.getElementById('cancer-top-btn').classList.remove('sidebar-top-active');
+    
+      /* Then highlight the correct one */
+      var cancerIds = ['cancer','cancer-corr','sdoh-corr','regional-sdoh',
+                       'regional-cancer','cancer-sdoh-matrix','indicator-matrix',
+                       'cancer-dictionary','cancer-sources'];
+      if (cancerIds.indexOf(caseId) !== -1) {
         document.getElementById('cancer-top-btn').classList.add('sidebar-top-active');
       } else {
         document.getElementById('consolidated-top-btn').classList.add('sidebar-top-active');
@@ -330,10 +335,20 @@
       var sub = document.getElementById('cancer-sub');
       var caret = document.getElementById('cancer-caret');
       var btn = document.getElementById('cancer-top-btn');
+    
+      /* Show/hide sub-items */
       sub.style.display = cancerOpen ? 'block' : 'none';
-      btn.setAttribute('aria-expanded', cancerOpen);
+      btn.setAttribute('aria-expanded', String(cancerOpen));
+    
+      /* Rotate caret */
       if (cancerOpen) {
         caret.classList.remove('rotated');
+        /* Clear consolidated active state */
+        document.getElementById('consolidated-top-btn').classList.remove('sidebar-top-active');
+        /* Clear all sub-item active states */
+        document.querySelectorAll('.sidebar-sub-item').forEach(function(b) {
+          b.classList.remove('sidebar-sub-active');
+        });
         btn.classList.add('sidebar-top-active');
       } else {
         caret.classList.add('rotated');
