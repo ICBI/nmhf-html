@@ -234,7 +234,7 @@
       <div class="sidebar-section">
         <button class="sidebar-top-item"
                 id="cancer-top-btn"
-                onclick="toggleCancerSection()"
+                onclick="toggleCancerSection(); loadUseCase(this, 'cancer'); return false;"
                 aria-pressed="false">
           <span class="sidebar-item-icon" aria-hidden="true">🔬</span>
           <span class="sidebar-item-text">
