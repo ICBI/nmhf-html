@@ -186,13 +186,13 @@
     
     var useCaseConfig = {
       'consolidated-home': {
-        title: 'Consolidated SDOH Database',
+        title: 'Consolidated NMHF Database',
         sub: 'Overview · Tableau Public',
         icon: 'bi-database',
         src: 'https://public.tableau.com/views/ConsolidatedSocialDeterminantsofHealthDatabase/homepage?:showVizHome=no&:embed=yes&:tabs=no&:toolbar=yes&:device=desktop'
       },
       'sdoh-distribution': {
-        title: 'SDOH Distribution',
+        title: 'NMHF Distribution',
         sub: 'Consolidated NMHF Database · Tableau Public',
         icon: 'bi-bar-chart-line',
         src: 'https://public.tableau.com/views/ConsolidatedSocialDeterminantsofHealthDatabase/SDOHDistribution?:showVizHome=no&:embed=yes&:tabs=no&:toolbar=yes&:device=desktop'
@@ -228,13 +228,13 @@
         src: 'https://public.tableau.com/views/SocialDeterminantsofHealthandCancer/CancerCorr?:showVizHome=no&:embed=yes&:tabs=no&:toolbar=yes&:device=desktop'
       },
       'sdoh-corr': {
-        title: 'SDOH Correlation',
+        title: 'NMHF Correlation',
         sub: 'NMHF Cancer · Tableau Public',
         icon: 'bi-diagram-3',
-        src: 'https://public.tableau.com/views/SocialDeterminantsofHealthandCancer/SDOHCorr?:showVizHome=no&:embed=yes&:tabs=no&:toolbar=yes&:device=desktop'
+        src: 'https://public.tableau.com/app/profile/shuo4161/viz/Non-MedicalHealthFactorsandCancer_17749758276890/SDOHCorr?:showVizHome=no&:embed=yes&:tabs=no&:toolbar=yes&:device=desktop'
       },
       'regional-sdoh': {
-        title: 'Regional SDOH Comparison',
+        title: 'Regional NMHF Comparison',
         sub: 'NMHF Cancer · Tableau Public',
         icon: 'bi-map',
         src: 'https://public.tableau.com/views/SocialDeterminantsofHealthandCancer/RegionalSDOHComparison?:showVizHome=no&:embed=yes&:tabs=no&:toolbar=yes&:device=desktop'
@@ -246,7 +246,7 @@
         src: 'https://public.tableau.com/views/SocialDeterminantsofHealthandCancer/RegionalCancerComparison?:showVizHome=no&:embed=yes&:tabs=no&:toolbar=yes&:device=desktop'
       },
       'cancer-sdoh-matrix': {
-        title: 'Cancer SDOH Matrix',
+        title: 'Cancer NMHF Matrix',
         sub: 'NMHF Cancer · Tableau Public',
         icon: 'bi-grid-3x3',
         src: 'https://public.tableau.com/views/SocialDeterminantsofHealthandCancer/CancerSDOHMatrix?:showVizHome=no&:embed=yes&:tabs=no&:toolbar=yes&:device=desktop'
